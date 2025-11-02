@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <NuGetAuditMode>all</NuGetAuditMode>
+		<Version>1.0.0</Version>
+    <NuGetAuditLevel>moderate</NuGetAuditLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+    <AssemblyTitle>Peeveen ASP.NET Core Utils</AssemblyTitle>
+  </PropertyGroup>
+
+  <!-- Allow certain warnings in Debug builds -->
+  <PropertyGroup Condition="$(Configuration) == 'Debug'">
+    <WarningsNotAsErrors>CS1591;S125;CMS0002</WarningsNotAsErrors>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	 <!-- NuGet package settings -->
+  <PropertyGroup>
+    <PackageIcon>packageIcon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Description>Handy utilities for ASP.NET Core applications.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include=".nuget/packageIcon.png" Pack="true" PackagePath="\" />
+    <None Include="../README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>
