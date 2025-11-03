@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
 
     <NuGetAuditMode>all</NuGetAuditMode>
-		<Version>1.0.0</Version>
+		<Version>1.1.0</Version>
     <NuGetAuditLevel>moderate</NuGetAuditLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 

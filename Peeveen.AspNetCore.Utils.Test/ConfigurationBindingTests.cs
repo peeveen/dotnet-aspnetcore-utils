@@ -40,8 +40,7 @@ public class ConfigurationBindingTests {
 		var services = new ServiceCollection();
 		var section = configuration.GetSection("MyOptions");
 		services.AddOptions<MyOptions>()
-			.Bind(section)
-			.Configure(options => options.BindDynamics(section));
+			.BindWithDynamics(section);
 
 		var serviceProvider = services.BuildServiceProvider();
 		var myOptions = serviceProvider.GetRequiredService<IOptions<MyOptions>>().Value;

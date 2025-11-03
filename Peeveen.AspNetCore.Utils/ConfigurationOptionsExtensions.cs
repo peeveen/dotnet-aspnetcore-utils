@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 [assembly: InternalsVisibleTo("Peeveen.AspNetCore.Utils.Test")]
 
@@ -100,7 +102,13 @@ public static class ConfigurationOptionsExtensions {
 		return expandoObject;
 	}
 
-	internal static T BindDynamics<T>(this T options, IConfiguration configuration) {
+	public static OptionsBuilder<T> BindWithDynamics<T>(this OptionsBuilder<T> optionsBuilder, IConfiguration configuration)
+		where T : class =>
+		optionsBuilder
+			.Bind(configuration)
+			.Configure(options => options.BindDynamics(configuration));
+
+	public static T BindDynamics<T>(this T options, IConfiguration configuration) {
 		if (options == null)
 			return options;
 		var t = options.GetType();
