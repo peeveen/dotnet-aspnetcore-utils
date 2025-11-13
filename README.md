@@ -29,4 +29,4 @@ serviceCollection
 
 Extension method for `IConfigurationBuilder` to add YAML configuration files. Based
 around the `NetEscapades.Configuration.Yaml` package, but simplifies the use of
-environment names in filenames.
+environment names in filenames. 
