@@ -3,4 +3,5 @@ obj
 TestResults
 .sonarqube
 .vscode
+.vs
 BenchmarkDotNet.Artifacts
