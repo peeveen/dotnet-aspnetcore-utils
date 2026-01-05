@@ -88,8 +88,8 @@ public static class ConfigurationOptionsExtensions {
 	}
 
 	private static dynamic ToExpandoObject(this IConfiguration configuration) {
-		var keyNames = configuration.GetChildren().Select(c => c.Key);
-		var allNumericKeys = keyNames.All(name => int.TryParse(name, out _));
+		var keyNames = configuration.GetChildren().Select(c => c.Key).ToArray();
+		var allNumericKeys = keyNames.Length != 0 && keyNames.All(name => int.TryParse(name, out _));
 		if (allNumericKeys) {
 			var list = new List<dynamic>();
 			configuration.Bind(list);
