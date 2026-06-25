@@ -1,5 +1,5 @@
 using System.Dynamic;
-using FluentAssertions;
+using AwesomeAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -24,11 +24,9 @@ public class ConfigurationBindingTests {
 				{ "MyOptions:Configuration:LongVal", $"{long.MaxValue}" },
 				{ "MyOptions:Configuration:BoolVal", "FalSe" }, // case insensitive
 				{ "MyOptions:Configuration:OtherVal:Thing", "9876.543" },
-				{ "MyOptions:Configuration:ArrayVal", null },
 				{ "MyOptions:Configuration:ArrayVal:0", "FirstArrayItem" },
 				{ "MyOptions:Configuration:ArrayVal:1", "SecondArrayItem" },
 				{ "MyOptions:Configuration:ArrayVal:2", "ThirdArrayItem" },
-				{ "MyOptions:Configuration:ObjectVal", null },
 				{ "MyOptions:Configuration:ObjectVal:StringVal", new string([.. stringVal.Reverse()])},
 				{ "MyOptions:Configuration:ObjectVal:DoubleVal", $"{double.MinValue}" },
 				{ "MyOptions:Configuration:ObjectVal:IntVal", $"{int.MinValue}" },
@@ -39,8 +37,12 @@ public class ConfigurationBindingTests {
 
 		var services = new ServiceCollection();
 		var section = configuration.GetSection("MyOptions");
+		var nonExistentSection = configuration.GetSection("DoesNotExist");
+		var blah = nonExistentSection.AsEnumerable().Any();
 		services.AddOptions<MyOptions>()
-			.BindWithDynamics(section);
+			.BindWithDynamics(section)
+			// Ensure that binding to a non-existent section does not eliminate all previous values
+			.BindWithDynamics(nonExistentSection);
 
 		var serviceProvider = services.BuildServiceProvider();
 		var myOptions = serviceProvider.GetRequiredService<IOptions<MyOptions>>().Value;

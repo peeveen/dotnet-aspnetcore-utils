@@ -109,7 +109,9 @@ public static class ConfigurationOptionsExtensions {
 			.Configure(options => options.BindDynamics(configuration));
 
 	public static T BindDynamics<T>(this T options, IConfiguration configuration) {
-		if (options == null)
+		var configurations = configuration.AsEnumerable().ToList();
+		var isEmptyConfiguration = configurations.Count == 1 && configurations[0].Value == null;
+		if (options == null || isEmptyConfiguration)
 			return options;
 		var t = options.GetType();
 		if (t.IsValueType)
