@@ -31,6 +31,7 @@ public class ConfigurationBindingTests {
 				{ "MyOptions:Configuration:ObjectVal:DoubleVal", $"{double.MinValue}" },
 				{ "MyOptions:Configuration:ObjectVal:IntVal", $"{int.MinValue}" },
 				{ "MyOptions:Configuration:ObjectVal:LongVal", $"{long.MinValue}" },
+				{ "MyOptions:Configuration:ObjectVal:NullObjectVal", null },
 				{ "MyOptions:Configuration:ObjectVal:BoolVal", "tRUe" }, // case insensitive
 			})
 			.Build();
@@ -58,6 +59,7 @@ public class ConfigurationBindingTests {
 		((myOptions.Configuration as dynamic).ObjectVal.DoubleVal as double?).Should().Be(double.MinValue);
 		((myOptions.Configuration as dynamic).ObjectVal.IntVal as int?).Should().Be(int.MinValue);
 		((myOptions.Configuration as dynamic).ObjectVal.LongVal as long?).Should().Be(long.MinValue);
+		((myOptions.Configuration as dynamic).ObjectVal.NullObjectVal as object).Should().BeNull();
 		((myOptions.Configuration as dynamic).ObjectVal.BoolVal as bool?).Should().BeTrue();
 		((myOptions.Configuration as dynamic).ArrayVal[0] as string).Should().Be("FirstArrayItem");
 		((myOptions.Configuration as dynamic).ArrayVal[1] as string).Should().Be("SecondArrayItem");
